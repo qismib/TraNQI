@@ -1,0 +1,22 @@
+        ┌───┐ ░ ┌──────────────────────────────────────────────┐ ░  ░ ┌─┐
+   q_0: ┤ H ├─░─┤ U(parameters[0],parameters[1],parameters[2]) ├─░──░─┤M├
+        └───┘ ░ └──────────────────────────────────────────────┘ ░  ░ └╥┘
+meas: 1/═══════════════════════════════════════════════════════════════╩═
+                                                                       0
+Expected value for rotation pi: [0.767]
+Training [10%]   Loss: -0.6998
+Training [20%]   Loss: -0.8938
+Training [30%]   Loss: -0.9387
+Training [40%]   Loss: -0.9425
+Training [50%]   Loss: -0.9504
+Training [60%]   Loss: -0.9564
+Training [70%]   Loss: -0.9634
+Training [80%]   Loss: -0.9723
+Training [90%]   Loss: -0.9727
+Training [100%]   Loss: -0.9755
+Performance on test data:
+        Loss: -0.9830
+        Accuracy: 100.0%
+The program took:  1139.908601284027 s to complete
+
+
