@@ -139,14 +139,6 @@ class HybridFunction(Function):
 
         return (result).T, None, None
         #returns the chain of previous gradient and evaluated gradient
-'''
-#testing the gradient
-x = torch.tensor([np.pi/4]*n_parameters, requires_grad=True)
-qc = HybridFunction.apply
-y1 = qc(x, circuit, shift)
-y1.backward()
-print('x.grad = ',x.grad )
-'''
 
 class Hybrid(nn.Module):
     """Hybrid quantum-cassical layer definition"""
@@ -160,37 +152,7 @@ class Hybrid(nn.Module):
     def forward(self, input):
         return HybridFunction.apply(input, self.quantum_circuit, self.shift) #calling forward and backward
 
-'''
-#testing the gradient descent
-qc = HybridFunction.apply
-
-def cost (x):
-    target = -1
-    #print('x', x)
-    expval = qc(x, circuit, shift)[0]
-    #print(expval)
-    val = torch.abs(expval-target)**2
-    return val, expval
-
-x = torch.tensor([-np.pi/4]*n_parameters, requires_grad=True)#inizilaing parameters
-opt = torch.optim.Adam([x], lr=0.1)
-num_epoch = 50
-loss_list = []
-
-for i in range(num_epoch):
-    opt.zero_grad()
-    loss, expval = cost(x)
-    #print(loss, expval)
-    loss.backward()
-    opt.step()
-    loss_list.append(loss.item())
-
-
-plt.figure(num =3)
-plt.plot(loss_list)
-'''
-
-##################3
+##################
 #DATA LOADING
 #training data
 n_samples = 100
