@@ -7,11 +7,19 @@ The file Training_Testing.py contains the training loop and the validation funct
 QUANTUM_NN.py: 
 Qiskit program with just a few changes. Binary recognition using an hybrid neural network. Quantum circuit made by single qibit and single trainable parameter. 
 
-N QUBIT: 
-Binary recognition using an arbitrary number of qubits. Gor each gate the gates are implemented as before, with an Hadamard gate, RY(trainable parameter) and a measurement. The circuit returns the expectation values for every possible combination of qubits (ex for N_qubits=2: 00, 01, 10, 11). 
+N_QUBITS: 
+Binary recognition using a quantum circuit made of different qubits with independent parametrized r-y rotation. The number of circuit can be chosen arbitrarly. Run both on qasm_simulator(accuracy of 99.7%) and on ibmq_athens(99.6%). Accuracy_vs_std contains the accuracy percentage obtained with different values of standard deviation of validation set of data, both for not-noisy training data and noisy training data (std_dev = 0.2). 
+Also used for not-binary recognition (02- 04): the loss function decreases but there is not convergence: accuracy of 95.5% and 87.7% respectively.
 
-This folder contains three python files: N_qubit.py that is the main file, QC_N_qubits.py that contains the definition of the quantum circuit and the extended forward and backward methods of Pytorch Function needed for the learning process. Training_Testing.py contains as in 'Classical' the training loop and the validation function definition. Result_N_qubit.txt contains the results of the training loop (with the update of the loss function), the accuracy test and the time used to complete the training process. 
+U3: 
+Binary recognition using a 3D rotation, U gate and three trainable parameters. The circuit returns the expectation value of |0>-|1>. Model trained both on simulator and on ibmq_athens (accuracy 99.9%) without big differences (U3_compare). Good recognition on noisy data (accuracy_vs_std) both with not-noisy training data and with noisy training data (std_dev = 0.3)
 
-N TRAINABLE PARAMETERS: 
-Binary recognition using a 3D rotation, U gate and three trainable parameters. The circuit returns the expectation value of 0-1. 
+ENTANGLEMENT:
+Binary recognition with entangled states circuit (3 qubits, CNOT gate between couples of qubits 01, 12 and parametrized R_z for each of them). Accuracy obtained: 99.8% on qasm simulator and 99.7% on ibmq_santiago. Good recognition on noisy data with noisy training data (std_dev = 0.1)
+
+QAOA: 
+Circuit inspired by QAOA optimization algorithm, depending on two parameters. Accuracy values of 99.4% and of 98.9% on qasm simulator and ibmq_santiago respectively. 
+
+
+It has been necessary to run the last two circuits (wich involved entangled states) on quantum computer with higher Quantum Volume (>=32) to obtain a correct convergence of the loss function and an acceptable accuracy on validation data.
 
