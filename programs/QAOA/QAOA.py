@@ -39,9 +39,8 @@ n_parameters = 2
 
 n_shots = 1000
 shift = 0.9
-learning_rate = 0.01
 momentum = 0.05
-epochs = 5
+
 
 
 
@@ -260,7 +259,7 @@ class Net(nn.Module):
         self.dropout = nn.Dropout2d() #deactivating randomly some neurons to avoid overfitting
         self.fc1 = nn.Linear(256, 64) #input dimension: CH(16) x Matrix_dim (4x4)
         self.fc2 = nn.Linear(64,n_parameters)
-        self.hybrid = Hybrid(n_qubits, n_parameters, qiskit.Aer.get_backend('qasm_simulator'), n_shots, shift)
+        self.hybrid = Hybrid(n_qubits, n_parameters, simulator, n_shots, shift)
         self.fc3 = nn.Linear(2**n_qubits, 2)
 
     def forward(self, x):
