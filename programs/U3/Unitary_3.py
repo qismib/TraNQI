@@ -40,9 +40,8 @@ n_shots = 1000
 shift = np.pi/2
 n_parameters = 3
 
-learning_rate = 0.01
 momentum = 0.5
-epochs = 10
+
 
 simulator = qiskit.Aer.get_backend('qasm_simulator')
 #can choose the simulator or the real quantum computer. The name of the variable is always 'simulator'
@@ -272,7 +271,7 @@ class Net(nn.Module):
         self.dropout = nn.Dropout2d() #deactivating randomly some neurons to avoid overfitting
         self.fc1 = nn.Linear(256, 64) #input dimension: CH(16) x Matrix_dim
         self.fc2 = nn.Linear(64,3)
-        self.hybrid = Hybrid(n_qubits, qiskit.Aer.get_backend('qasm_simulator'), n_shots, shift )
+        self.hybrid = Hybrid(n_qubits, simulator, n_shots, shift )
 
     def forward(self, x):
         x = F.max_pool2d(F.relu(self.conv1(x)),2)
