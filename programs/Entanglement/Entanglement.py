@@ -44,8 +44,6 @@ n_qubits = 3
 #simulator = qiskit.Aer.get_backend('qasm_simulator')
 n_shots = 1000
 shift = np.pi / 2
-learning_rate = 0.008
-epochs = 12
 
 
 #real quantum device or simulator
@@ -288,7 +286,7 @@ class Net(nn.Module):
         self.dropout = nn.Dropout2d() #deactivating randomly some neurons to avoid overfitting
         self.fc1 = nn.Linear(256, 64) #input dimension: CH(16) x Matrix_dim
         self.fc2 = nn.Linear(64,n_qubits)
-        self.hybrid = Hybrid(n_qubits, qiskit.Aer.get_backend('qasm_simulator'), n_shots, shift )
+        self.hybrid = Hybrid(n_qubits, simulator, n_shots, shift )
 
     def forward(self, x):
         x = F.max_pool2d(F.relu(self.conv1(x)),2)
@@ -366,11 +364,8 @@ X_test.targets = X_test.targets[idx]
 test_loader = torch.utils.data.DataLoader(X_test, batch_size=1, shuffle=True)
 
 
-# In[39]:
 
-
-
-#defining a function to test our net
+#defining a function to test the net
 def validate(model, test_loader, loss_function, n_test, axes):
     correct = 0
     total_loss = []
@@ -390,7 +385,7 @@ def validate(model, test_loader, loss_function, n_test, axes):
             loss = loss_function(output, target)
             total_loss.append(loss.item())
 
-            #printing the resut as images
+            #printing the result as images
             if count >= n_test:
                 continue
             else:
@@ -428,8 +423,6 @@ class AddGaussianNoise(object):
     def __repr__(self):
         return self.__class__.__name__ + '(mean={0}, std={1})'.format(self.mean, self.std)
 
-
-# In[42]:
 
 
 stop,mean, std_dv= 10, 0, 0.1
